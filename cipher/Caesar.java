@@ -32,16 +32,16 @@ public class Caesar {
 
 		Scanner sc =new Scanner(System.in);
 		System.out.println("Enter plain text: ");
-		PlainText=sc.nextLine();
+		PlainText=sc.nextLine().toUpperCase();
 		System.out.println("Enter key");
 		byte key=(byte) (sc.nextInt()%26);
 		for(int i=0;i<PlainText.length();i++) {
-			CipherText += (char)(PlainText.charAt(i)+key);
+			CipherText += (char)(((PlainText.charAt(i)-65+key)%26)+65);
 		}
 		System.out.println("Encrypted text is: "+CipherText);
 		String DecryptedText="";
 		for(int i=0;i<CipherText.length();i++) {
-			DecryptedText += (char)(CipherText.charAt(i)-key);
+			DecryptedText += (char)(((26+CipherText.charAt(i)-65-key)%26)+65);
 		}
 		System.out.println("Decrypted Text: "+DecryptedText);
 		sc.close();
