@@ -46,7 +46,7 @@ public class AdvRailFence {
 		String DecryptedText2=decrypt(CipherText2,key);
 		System.out.println("DecryptedText': "+DecryptedText2);
 		String DecryptedText=decrypt(DecryptedText2,key);
-		DecryptedText.replaceAll("X", "");
+		DecryptedText=DecryptedText.replaceAll("X", "");
 		System.out.println("DecryptedText: "+DecryptedText);
 		sc.close();
 	}
