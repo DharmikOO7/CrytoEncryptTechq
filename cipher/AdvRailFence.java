@@ -25,13 +25,9 @@
 package cipher;
 
 import java.util.Scanner;
-
-
 public class AdvRailFence {
-
 	public static void main(String[] args) {
 		Scanner sc =new Scanner(System.in);
-		
 		System.out.print("Enter plain text: ");
 		String plainText=sc.nextLine().toUpperCase().replaceAll(" ","");
 		System.out.print("Enter key: ");
@@ -40,16 +36,33 @@ public class AdvRailFence {
 		int lenKey=key.length();
 		int lenPT=plainText.length();
 		for(byte i=0;i<lenKey-lenPT%lenKey;i++) {
-			plainText+="X";
+		plainText+="X";
 		}
 		System.out.println("Padded PT: "+plainText);
 		String CipherText1=encrypt(plainText,key);
 		System.out.println("CipherText1: "+CipherText1);
 		String CipherText2=encrypt(CipherText1,key);
 		System.out.println("CipherText2: "+CipherText2);
+		String DecryptedText2=decrypt(CipherText2,key);
+		System.out.println("DecryptedText': "+DecryptedText2);
+		String DecryptedText=decrypt(DecryptedText2,key);
+		DecryptedText.replaceAll("X", "");
+		System.out.println("DecryptedText: "+DecryptedText);
 		sc.close();
 	}
-
+	private static String decrypt(String cipherText, String key) {
+		int lenKey=key.length();
+		String DecryptedText="";
+		int rows=cipherText.length()/lenKey;
+		for(int i=0;i<rows;i++) {
+			for(int j=0;j<lenKey;j++) {
+				int order=key.charAt(j)-48;
+				int index=(order-1)*rows+i;
+				DecryptedText+=cipherText.charAt(index);
+			}
+		}
+		return DecryptedText;
+	}
 	private static String encrypt(String inputText, String key) {
 		int lenKey=key.length();
 		String CipherText="";
@@ -62,5 +75,4 @@ public class AdvRailFence {
 		}
 		return CipherText;
 	}
-
 }
